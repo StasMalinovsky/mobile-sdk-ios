@@ -45,6 +45,7 @@ public extension Bundle {
     
     /// Method for swizzling implementation back for localizedString(forKey:value:table:) method.
     public class func unswizzle() {
+        // TEST
         guard original != nil && swizzled != nil else { return }
         method_exchangeImplementations(swizzled, original)
         swizzled = nil
