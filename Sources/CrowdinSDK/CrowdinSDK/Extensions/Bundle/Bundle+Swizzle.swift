@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // MARK: - Extension for Bundle method swizzling.
-extension Bundle {
+public extension Bundle {
     // swiftlint:disable implicitly_unwrapped_optional
     /// Original localizedString(forKey:value:table:) method.
     static var original: Method!
@@ -36,7 +36,7 @@ extension Bundle {
     }
 
     /// Method for swizzling implementation for localizedString(forKey:value:table:) method.
-    class func swizzle() {
+    public class func swizzle() {
         // swiftlint:disable force_unwrapping
         original = class_getInstanceMethod(self, #selector(Bundle.localizedString(forKey:value:table:)))!
         swizzled = class_getInstanceMethod(self, #selector(Bundle.swizzled_LocalizedString(forKey:value:table:)))!
@@ -44,7 +44,7 @@ extension Bundle {
     }
     
     /// Method for swizzling implementation back for localizedString(forKey:value:table:) method.
-    class func unswizzle() {
+    public class func unswizzle() {
         guard original != nil && swizzled != nil else { return }
         method_exchangeImplementations(swizzled, original)
         swizzled = nil
